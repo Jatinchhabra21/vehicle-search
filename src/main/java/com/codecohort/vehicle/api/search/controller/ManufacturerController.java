@@ -1,6 +1,7 @@
 package com.codecohort.vehicle.api.search.controller;
 
 import com.codecohort.vehicle.api.search.entity.Manufacturer;
+import com.codecohort.vehicle.api.search.exception.ManufacturerNotFoundException;
 import com.codecohort.vehicle.api.search.service.ManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,13 @@ public class ManufacturerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable int id) {
+    public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable int id) throws ManufacturerNotFoundException {
         Manufacturer dbRecord = _manufacturerService.getManufacturerById(id);
+
+        if(dbRecord == null) {
+            throw new ManufacturerNotFoundException("No manufacturer found for Id - "+id);
+        }
+
         return ResponseEntity.ok(dbRecord);
     }
 
