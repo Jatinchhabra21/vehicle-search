@@ -25,8 +25,15 @@ public class ManufacturerController {
     @GetMapping
     public ResponseEntity<List<Manufacturer>> getAllManufacturerInDB() {
         List<Manufacturer> dbRecords = _manufacturerService.getAllManufacturers();
-        return new ResponseEntity<>(dbRecords, HttpStatus.OK);
+        return ResponseEntity.ok(dbRecords);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable int id) {
+        Manufacturer dbRecord = _manufacturerService.getManufacturerById(id);
+        return ResponseEntity.ok(dbRecord);
+    }
+
     @PostMapping
     public ResponseEntity<Manufacturer> createManufacturerInDB(@RequestBody Manufacturer manufacturer) {
         Manufacturer dbRecord = _manufacturerService.saveManufacturer(manufacturer);

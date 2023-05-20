@@ -6,6 +6,7 @@ import com.codecohort.vehicle.api.search.service.ManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ManufacturerServiceImpl implements ManufacturerService {
@@ -22,6 +23,16 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         return _manufacturerDAO.save(manufacturer);
     }
 
+    @Override
+    public Manufacturer getManufacturerById(int id) {
+        Optional<Manufacturer> manufacturer =  _manufacturerDAO.findById(id);
+        if(manufacturer.isPresent()) {
+            return manufacturer.get();
+        }
+        return null;
+    }
+
+    @Override
     public List<Manufacturer> getAllManufacturers() {
         return _manufacturerDAO.findAll();
     }
