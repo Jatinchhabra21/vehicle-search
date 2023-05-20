@@ -19,6 +19,4 @@ public class Manufacturer {
     private String manufacturerName;
     @Column(name="country_of_origin")
     private String countryOfOrigin;
-
-
 }
