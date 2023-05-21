@@ -53,4 +53,15 @@ public class ManufacturerServiceImpl implements ManufacturerService {
         }
         return dbManufacturer;
     }
+
+    @Override
+    public void deleteManufacturer(int id) throws ManufacturerNotFoundException {
+        Manufacturer dbManufacturer = getManufacturerById(id);
+        if(dbManufacturer != null) {
+            _manufacturerDAO.delete(dbManufacturer);
+        }
+        else {
+            throw new ManufacturerNotFoundException("No manufacturer found for Id - "+id);
+        }
+    }
 }
