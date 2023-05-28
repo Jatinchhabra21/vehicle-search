@@ -6,10 +6,9 @@ import com.codecohort.vehicle.api.search.service.ModelTrimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -22,16 +21,25 @@ public class ModelTrimController {
         this._modelTrimService = modelTrimService;
     }
 
-    @PostMapping("model")
+    @PostMapping("models")
     public ResponseEntity<Model> createModelTrim(@RequestBody Model model) {
         Model savedModel = _modelTrimService.saveModel(model);
         return new ResponseEntity<>(savedModel, HttpStatus.CREATED);
     }
 
-    @PostMapping("trim-type")
+    @PostMapping("trim-types")
     public ResponseEntity<TrimType> createTrimType(@RequestBody TrimType trimType) {
         TrimType savedTrimType = _modelTrimService.saveTrimType(trimType);
         return new ResponseEntity<>(savedTrimType, HttpStatus.CREATED);
+    }
+
+    @GetMapping("models")
+    public ResponseEntity<List<Model>> getAllModels() {
+        List<Model> models = _modelTrimService.findAllModels();
+        if (models.size() > 0)
+            return ResponseEntity.ok(models);
+        else
+            return null;
     }
 
 
