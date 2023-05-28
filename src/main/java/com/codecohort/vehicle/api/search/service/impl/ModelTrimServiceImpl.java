@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.AbstractAuditable_;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ModelTrimServiceImpl implements ModelTrimService {
 
@@ -31,5 +33,11 @@ public class ModelTrimServiceImpl implements ModelTrimService {
     public TrimType saveTrimType(TrimType trimType) {
         TrimType savedTrimType = _trimTypeDAO.save(trimType);
         return savedTrimType;
+    }
+
+    @Override
+    public List<Model> findAllModels() {
+        List<Model> models = _modelDAO.findAll();
+        return models;
     }
 }
